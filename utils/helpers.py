@@ -25,11 +25,29 @@ logger = logging.getLogger(__name__)
 _DEFAULT_CONFIG_PATH = Path(__file__).resolve().parent.parent / "config" / "settings.yaml"
 
 
+def _load_dotenv(env_path: Path) -> dict[str, str]:
+    """Parse a .env file into a dict (no third-party dependency)."""
+    result: dict[str, str] = {}
+    if not env_path.exists():
+        return result
+    with open(env_path, "r", encoding="utf-8") as fh:
+        for line in fh:
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            if "=" in line:
+                key, _, value = line.partition("=")
+                result[key.strip()] = value.strip().strip("\"'")
+    return result
+
+
 def load_config(path: str | Path | None = None) -> dict[str, Any]:
     """Load and return the YAML configuration dictionary.
 
-    Environment variable overrides:
-        GEMINI_API_KEY  →  config["llm"]["api_key"]
+    API key resolution order:
+        1. ``.env`` file (git-ignored)
+        2. ``GEMINI_API_KEY`` environment variable
+        3. ``api_key`` field in settings.yaml (not recommended)
     """
     config_path = Path(path) if path else _DEFAULT_CONFIG_PATH
     if not config_path.exists():
@@ -38,11 +56,15 @@ def load_config(path: str | Path | None = None) -> dict[str, Any]:
     with open(config_path, "r", encoding="utf-8") as fh:
         config: dict[str, Any] = yaml.safe_load(fh)
 
-    # API key: prefer YAML value, fall back to environment variable
+    # Load .env from project root
+    project_root = config_path.parent.parent
+    dotenv = _load_dotenv(project_root / ".env")
+
+    # API key: .env → environment variable → yaml fallback
     llm_cfg = config.setdefault("llm", {})
     yaml_key = llm_cfg.get("api_key", "")
-    env_key = os.environ.get("GEMINI_API_KEY", "")
-    llm_cfg["api_key"] = yaml_key if yaml_key else env_key
+    env_key = dotenv.get("GEMINI_API_KEY", "") or os.environ.get("GEMINI_API_KEY", "")
+    llm_cfg["api_key"] = env_key if env_key else yaml_key
 
     logger.info("Configuration loaded from %s", config_path)
     return config
