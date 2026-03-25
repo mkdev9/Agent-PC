@@ -1,0 +1,28 @@
+# ─────────────────────────────────────────────────
+# Desktop Agent — Python Dependencies
+# ─────────────────────────────────────────────────
+
+# Screen capture
+mss>=9.0.0
+
+# Image processing
+Pillow>=10.0.0
+
+# OCR
+pytesseract>=0.3.10
+
+# Window / process tracking
+PyGetWindow>=0.0.9
+psutil>=5.9.0
+
+# Google Gemini LLM (new SDK)
+google-genai>=1.0.0
+
+# Async SQLite
+aiosqlite>=0.20.0
+
+# Config
+PyYAML>=6.0
+
+# Colored console output
+colorama>=0.4.6

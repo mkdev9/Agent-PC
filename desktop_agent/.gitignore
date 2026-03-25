@@ -1,0 +1,37 @@
+# ─────────────────────────────────────────────────
+# Desktop Agent — .gitignore
+# ─────────────────────────────────────────────────
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+dist/
+build/
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Database (session data)
+data/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Environment / secrets
+.env

@@ -1,0 +1,56 @@
+# ─────────────────────────────────────────────────
+# Desktop Agent — Configuration
+# ─────────────────────────────────────────────────
+
+agent:
+  # Seconds between capture cycles
+  capture_interval: 5
+  # User consent required at startup
+  require_consent: true
+
+capture:
+  # Monitor index (1 = primary)
+  monitor: 1
+  # Downscale factor for OCR speed (1 = no downscale)
+  downscale: 2
+
+ocr:
+  # "pytesseract" or "easyocr"
+  engine: "pytesseract"
+  # Language for Tesseract
+  lang: "eng"
+
+llm:
+  # Gemini model identifier
+  model: "gemini-3-flash-preview"
+  # Temperature for generation
+  temperature: 0.7
+  # Max output tokens
+  max_output_tokens: 1024
+  # Set your API key in a .env file or as an environment variable (GEMINI_API_KEY)
+  # DO NOT paste your key here if pushing to GitHub
+  api_key: ""
+
+throttling:
+  # Minimum seconds between LLM calls
+  min_interval: 30
+  # Minimum image‐hash distance to consider "changed"
+  change_threshold: 5
+  # Max OCR text‐similarity ratio to skip LLM (0‐1)
+  text_similarity_skip: 0.95
+
+logging:
+  level: "INFO"
+  # Rotating log file
+  file: "desktop_agent.log"
+  max_bytes: 5242880   # 5 MB
+  backup_count: 3
+
+database:
+  path: "data/session.db"
+
+output:
+  # Enable colored console narration
+  narration: true
+  # Enable optional tkinter overlay
+  overlay: false
