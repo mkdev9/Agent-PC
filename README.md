@@ -47,14 +47,6 @@ desktop_agent/
 └── main.py             # Entry point
 ```
 
-This separation is intentional:
-
-- **Perception** is deterministic
-- **Reasoning** is probabilistic
-- **State** ties them together
-
----
-
 ## Why This Exists
 
 If you can't observe your workflow at a systems level, you can't improve it.
@@ -170,21 +162,11 @@ If your outputs look generic, your prompts or thresholds are wrong.
 ## Design Constraints (Important)
 
 - **Not real-time streaming** → interval-based by design
-- **LLM calls are expensive** → aggressively throttled
+- **LLM calls are expensive** → aggressively throttled so use only when you needed to check something.
 - **OCR is noisy** → system relies on aggregation, not single frames
 - **Privacy-first assumption** → nothing leaves your machine except prompts
 
 If you try to turn this into a continuous surveillance system, you'll break both cost and signal quality.
-
----
-
-## Stopping the Agent
-
-`Ctrl + C`
-
-Graceful shutdown ensures:
-- SQLite is flushed
-- No partial state corruption
 
 ---
 
