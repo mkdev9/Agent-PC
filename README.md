@@ -141,8 +141,6 @@ If you ignore this file, the system will work — just inefficiently.
      - **Prediction**
 7. Insight is displayed + stored
 
-No black box. Every step is inspectable.
-
 ---
 
 ## Output Example
@@ -177,7 +175,7 @@ If you try to turn this into a continuous surveillance system, you'll break both
 - Not a generic "AI assistant"
 - Not production-hardened for enterprise deployment
 
-It's a **foundation system** for building workflow intelligence.
+It's a **foundation system** for building workflow intelligence. where its logs your activities and give insight on your behavioral process.
 
 ---
 
