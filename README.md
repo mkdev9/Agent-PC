@@ -1,6 +1,6 @@
 # Desktop Observability Agent
 
-A modular Python system that observes your desktop session (with explicit user consent) and generates structured, real-time insights about what you're doing — and how to do it better — using Google Gemini.
+A modular Python system that observes your desktop session (with explicit user consent) and generates structured, real-time insights about what you're doing — and how to do it better — using LLM as generating insight.
 
 ---
 
